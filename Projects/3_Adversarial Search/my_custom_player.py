@@ -223,7 +223,7 @@ class CustomPlayer(DataPlayer):
         if state.ply_count < 2:
             self.queue.put(random.choice(state.actions()))
         else:
-            self.queue.put(self.minimax(state, depth=4, heuristic=self.keep_near_center_h2))       
+            self.queue.put(self.minimax(state, depth=3, heuristic=self.keep_near_center_h2))       
 
     def minimax(self, state, depth, heuristic):
 
