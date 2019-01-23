@@ -57,8 +57,8 @@ class Isolation(NamedTuple('Isolation', [('board', int), ('ply_count', int), ('l
         on the board; otherwise an integer.
     """
     def __new__(cls, board=_BLANK_BOARD, ply_count=0, locs=(None, None)):
-        return super(Isolation, cls).__new__(cls, board, ply_count, locs)
-
+        return super(Isolation, cls).__new__(cls, board, ply_count, locs)    
+        
     def actions(self):
         """ Return a list of the legal actions in the current state
 
@@ -175,7 +175,30 @@ class Isolation(NamedTuple('Isolation', [('board', int), ('ply_count', int), ('l
         -------
             Isolation.liberties()
         """
-        return any(self.liberties(self.locs[player_id]))
+        return any(self.liberties(self.locs[player_id]))  
+
+    def is_winner(self):
+        self._has_liberties(self.player()) and not self._has_liberties(1 - self.player())     
+
+    def obstacles_matrix(self):    
+        arr = [[] for i in range(_WIDTH - 2)]
+        i = 0
+        board = self.board << 2
+        for loc in range(_SIZE + 2):
+            if loc > 2 and loc % (_WIDTH + 2) == 0:
+                i+=1
+            if loc % (_WIDTH + 2) == 0 or loc % (_WIDTH + 2) == 1:
+                continue
+            sym = int((board & (1 << loc)) == 0)
+            if loc-2 == self.locs[1 - self.player()]: sym = 2
+            if loc-2 == self.locs[self.player()]: sym = -1
+            arr[i].append(sym)
+        
+        arr.reverse()         
+        for a in arr:
+            a.reverse()
+            #print(a) 
+        return arr    
 
 
 class DebugState(Isolation):

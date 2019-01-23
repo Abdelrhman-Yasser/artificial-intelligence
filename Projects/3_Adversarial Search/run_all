@@ -1,0 +1,5 @@
+python run_match.py -f -r 100 
+python run_match.py -f -r 100 -o GREEDY
+python run_match.py -f -r 100 -o RANDOM
+python run_match.py -f -r 100 -o SELF
+
