@@ -15,6 +15,7 @@ class BasePlayer:
         self.queue = None
         self.context = None
         self.data = None
+        self.expansions = 0
 
     def get_action(self, state):
         """ Implement a function that calls self.queue.put(ACTION) within the allowed time limit 
